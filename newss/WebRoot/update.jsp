@@ -1,6 +1,6 @@
 <%@page import="cn.bdqn.bean.Datail"%>
-<%@page import="cn.bdqn.seriverImpl.DatailSeriverImpl"%>
-<%@page import="cn.bdqn.seriver.DatailSeriver"%>
+<%@page import="cn.bdqn.seriverImpl.Datail.DatailSeriverImpl"%>
+<%@page import="cn.bdqn.seriver.Datail.DatailSeriver"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
@@ -84,13 +84,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="controls">
 								  <select id="selectError" data-rel="chosen" name="categoryId">
 									<option value="0">请选择新闻类别</option>
-									 <option value="0">请选择类别</option>
- +									    <option <c:if test="${datail.categoryId==1}">selected</c:if>  value="1">国内</option>
- +									    <option <c:if test="${datail.categoryId==2}">selected</c:if>  value="2">国际</option>
- +									    <option <c:if test="${datail.categoryId==3}">selected</c:if>  value="3">娱乐</option>
- +									    <option <c:if test="${datail.categoryId==4}">selected</c:if>  value="4">军事</option>
- +									    <option <c:if test="${datail.categoryId==5}">selected</c:if>  value="5">财经</option>
- +									    <option <c:if test="${datail.categoryId==6}">selected</c:if>  value="6">天气</option>
+ 									    <option <c:if test="${datail.categoryId==1}">selected</c:if>  value="1">国内</option>
+ 									    <option <c:if test="${datail.categoryId==2}">selected</c:if>  value="2">国际</option>
+ 									    <option <c:if test="${datail.categoryId==3}">selected</c:if>  value="3">娱乐</option>
+ 									    <option <c:if test="${datail.categoryId==4}">selected</c:if>  value="4">军事</option>
+ 									    <option <c:if test="${datail.categoryId==5}">selected</c:if>  value="5">财经</option>
+ 									    <option <c:if test="${datail.categoryId==6}">selected</c:if>  value="6">天气</option>
 								  </select>
 								</div>
 							  </div>

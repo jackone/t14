@@ -3,13 +3,16 @@ package cn.bdqn.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.bdqn.seriver.DatailSeriver;
-import cn.bdqn.seriverImpl.DatailSeriverImpl;
-
+import cn.bdqn.bean.Datail;
+import cn.bdqn.seriver.SeriverFactory;
+import cn.bdqn.seriver.Datail.DatailSeriver;
+import cn.bdqn.seriverImpl.Datail.DatailSeriverImpl;
+@WebServlet("/DelServlet")
 public class DelServlet extends HttpServlet {
 
 	@Override
@@ -24,9 +27,10 @@ public class DelServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int id=Integer.parseInt(request.getParameter("id"));
-    	DatailSeriver datailSeriver=new DatailSeriverImpl();
-    	int num=datailSeriver.delete(id);
-    	if(num>0){
+		DatailSeriver datailSeriver=(DatailSeriver) SeriverFactory.getSeriverImpl("DatailSeriverImpl");
+    	Datail t=new Datail();
+    	t.setId(id);
+    	if(datailSeriver.delete(t)){
     	System.out.print("É¾³ý³É¹¦£¡");
     	request.getRequestDispatcher("ListServlet").forward(request, response);
     		//response.sendRedirect("/ListServlet");

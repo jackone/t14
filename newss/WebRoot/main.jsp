@@ -1,6 +1,6 @@
 <%@page import="cn.bdqn.bean.Datail"%>
-<%@page import="cn.bdqn.seriverImpl.DatailSeriverImpl"%>
-<%@page import="cn.bdqn.seriver.DatailSeriver"%>
+<%@page import="cn.bdqn.seriverImpl.Datail.DatailSeriverImpl"%>
+<%@page import="cn.bdqn.seriver.Datail.DatailSeriver"%>
 <%@page import="cn.bdqn.bean.User"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  <th>新闻标题</th>
 								  <th>新闻摘要</th>
 								  <th>创建时间</th>
-								  <th>修改时间</th>
+								  <th>文件地址</th>
 								  <th>操作</th>
 							  </tr>
 						  </thead>
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td class="center">${datail.summary}</td>
 								<td class="center">${datail.createDate}</td>
 								<td class="center">
-									<span class="label label-success">${datail.modifyDate}</span>
+									<span class="label label-success">${datail.picPath}</span>
 								</td>
 								<td class="center">
 									<a class="btn btn-success" href="FindCategoryServlet">
@@ -115,6 +115,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<i class="icon-trash icon-white"></i> 
 										删除
 									</a>
+									<c:if test="${not empty datail.picPath}">
+									<a class="btn btn-dange r" href="UploadServlet?picPath=${datail.picPath}" >
+										<i class="icon-trash icon-white"></i> 
+										点击下载文件
+									</a>
+									</c:if>
 								</td>
 							</tr>
 						  </tbody>
@@ -125,7 +131,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			</div><!--/row-->
 			
-			//modal模态窗口
+	 <nav aria-label="Page navigation">
+   <ul class="pagination">
+ 	  
+	  <c:if test="${page.pageIndex>1}">
+ 	    <li><a href="ListServlet?pageIndex=1">首页</a></li>
+ 	    <li><a href="ListServlet?pageIndex=${page.pageIndex-1}" >上一页</a></li>
+ 	  </c:if>  
+	  
+ 	    <c:if test="${page.pageIndex< page.pageCount}">
+	    <li><a href="ListServlet?pageIndex=${page.pageIndex+1}">下一页</a></li>
+ 	    <li><a href="ListServlet?pageIndex=${page.pageCount}">尾页</a></li>
+	     </c:if>  
+	  </ul>
+   </nav>
+			
+			<!-- modal模态窗口 -->
 			<div class="modal hide fade" id="myModal">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>

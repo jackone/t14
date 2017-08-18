@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +21,10 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import cn.bdqn.bean.Datail;
-import cn.bdqn.seriver.DatailSeriver;
-import cn.bdqn.seriverImpl.DatailSeriverImpl;
-
+import cn.bdqn.seriver.SeriverFactory;
+import cn.bdqn.seriver.Datail.DatailSeriver;
+import cn.bdqn.seriverImpl.Datail.DatailSeriverImpl;
+@WebServlet("/AddServlet")
 public class AddServlet extends HttpServlet {
 
 	@Override
@@ -80,30 +82,8 @@ public class AddServlet extends HttpServlet {
 		 + *  04.对list集合进行遍历，每遍历一次都要使用FileItem类中的isFormField（）来判断是否为文件
 		 + *      001.普通字段  使用 getFieldName()  和getString() 来获取字段名和字段值
 		 + *      002.文件   使用getInputStream  getName  getOutputStream*/
-	/*	request.setCharacterEncoding("UTF-8");
-		Datail datail=new Datail();
-		datail.setAuthor(request.getParameter("author"));
-		datail.setTitle(request.getParameter("title"));
-		datail.setContent(request.getParameter("content"));
-		datail.setCreateDate(new Date());
-		datail.setPicPath(request.getParameter("picPath"));
-		datail.setSummary(request.getParameter("summary"));
-		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
-		try {
-			datail.setCreateDate(df.parse(request.getParameter("createDate")));
-		} catch (ParseException e) {
-			System.err.println("日期格式不正确");
-		}
 		
-		
-		DatailSeriver datailSeriver=new DatailSeriverImpl();
-		boolean flag = datailSeriver.addDatail(datail);
-		if (flag) {
-			
-			request.getRequestDispatcher("ListServlet").forward(request, response);
-		}*/
-		
-		System.out.println("临时文件的位置"+System.getProperty("java.io.temdir"));
+		//System.out.println("临时文件的位置"+System.getProperty("java.io.temdir"));
 		//因为新增新闻  需要一个新闻对象
 		Datail datail=new Datail();
 		//01.创建DiskFileItemFactory对象
@@ -155,8 +135,8 @@ public class AddServlet extends HttpServlet {
 					}
 					
 				}
-				DatailSeriver datailSeriver=new DatailSeriverImpl();
-				boolean flag1 = datailSeriver.addDatail(datail);
+				DatailSeriver datailSeriver=(DatailSeriver) SeriverFactory.getSeriverImpl("DatailSeriverImpl");
+				boolean flag1 = datailSeriver.add(datail);
 				
 				if (flag1) {
 					request.getRequestDispatcher("ListServlet").forward(request, response);
